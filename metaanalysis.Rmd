@@ -1,0 +1,91 @@
+---
+title: "Meta-analysis"
+author: "Ethan Hare"
+date: "4/11/2022"
+output: word_document
+---
+
+```{r}
+# Compilation of metafor, orchard, and accessory packages
+
+install.packages("devtools")
+install.packages("tidyverse")
+install.packages("metafor")
+install.packages("patchwork")
+install.packages("R.rsp")
+install.packages("pacman")
+
+devtools::install_github("itchyshin/orchard_plot", subdir = "orchaRd", force = TRUE, build_vignettes = TRUE)
+
+library(orchaRd)
+library(patchwork)
+library(tidyverse)
+library(metafor)
+```
+
+
+
+
+
+
+
+```{r}
+## Effect Size Calculation
+
+setwd("~/Desktop/metafor")
+dat=read.csv("stats3.csv")
+dat
+dat2=escalc(measure="ZCOR", ri=ri, ni=n, data=dat)
+dat2
+```
+
+```{r}
+## Meta Analysis random effects model
+res=rma(yi, vi, data=dat2, method="REML")
+res
+predict(res, transf=transf.ztor)
+forest(res)
+funnel(res)
+
+res10 <- mod_results(res, "Int")
+print(res10)
+
+## moderator analysis pigment with intercept
+res2=rma.mv(yi, vi, mods=~pig_type, data=dat2, method="REML", random=~1 | study)
+res2
+
+## without intercept pigment
+res3=rma.mv(yi, vi, mods=~ pig_type-1, data=dat2, method="REML", random=~1 | study)
+res3
+forest(res3)
+res13 <- mod_results(res3, "pig_type")
+print(res13)
+
+## without intercept migration
+res4=rma.mv(yi, vi, mods=~ migration-1, data=dat2, method="REML", random=~1 | study)
+res4
+forest(res4)
+
+res14 <- mod_results(res4, "migration")
+print(res14)
+## without intercept discrete/continous
+
+res5=rma.mv(yi, vi, mods=~ cont_disc-1, data=dat2, method="REML", random=~1 | study)
+res5
+forest(res5)
+
+#Publication bias and sensitivity analyses
+fsn(yi, vi, data=dat2, type="Rosenberg")
+taf<-trimfill(res)
+funnel(taf)
+
+#Orchard plotting
+p1 <- orchard_plot(res, xlab = "Fischer's r-to-z Correlation Coeffienct")
+p2 <- orchard_plot(res13, mod = "Pig_type", xlab = "Fischer's r-to-z Correlation Coefficient")
+p3 <- orchard_plot(res14, mod = "Migration", xlab = "Fischer's r-to-z Correlation Coefficient") 
+
+p1
+p2/p3
+
+```
+
