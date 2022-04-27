@@ -1,0 +1,15 @@
+﻿species,study,pig_type,cont_disc,migration,ri,n
+house finch,Hill_1990,carotenoid,continuous,sedentary,0.905551655,14
+house finch,Hill_1990,carotenoid,continuous,sedentary,0.631051859,17
+house finch,Hill_1990,carotenoid,continuous,sedentary,0.7671915,18
+house finch,Hill_1990,carotenoid,continuous,sedentary,0.761282527,21
+house finch,Hill_1994,carotenoid,continuous,sedentary,0.743736738,21
+house finch,Hill_1994,carotenoid,continuous,sedentary,0.887893956,4
+house finch,Hill_1994,carotenoid,continuous,sedentary,0.567328132,16
+house finch,Hill_1994,carotenoid,continuous,sedentary,0.98770792,8
+northern cardinal,Wolfenberger_1999a,carotenoid,continuous,sedentary,-0.536051257,8
+red backed fairy wren,Karubian_2002,carotenoid,continuous,sedentary,0.79249304,56
+village weaverbird,Collias_et_al_1979,carotenoid,discrete,sedentary,0.436665133,7
+yellowhammer,Sundberg_1995,carotenoid,discrete,long,0.307011823,7
+pied flycatcher,Saetre_et_al_1994,eumelanin,discrete,long,0.868243142,12
+european kestrel,Palokangas_et_al_1994,phaeomelanin,continuous,long,0.395768179,12
